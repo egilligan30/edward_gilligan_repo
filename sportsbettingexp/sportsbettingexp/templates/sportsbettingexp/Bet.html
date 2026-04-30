@@ -1,0 +1,51 @@
+{% extends "global/Page.html" %}
+
+{% block content %}
+<h1>PLACE YOUR BET</h1>
+
+<p><strong>ROUND {{ ROUND_NUMBER }} OF {{ NUM_ROUNDS }}</strong></p>
+
+<div style="margin-bottom: 20px;">
+    <p><strong>CURRENT SAVINGS:</strong> ${{ SAVINGS }}</p>
+    <p><strong>CURRENT DEBT:</strong> ${{ DEBT }}</p>
+    <p><strong>MORTGAGE PAYMENT: $25</strong></p>
+</div>
+
+<form method="post">
+
+    <p>{{ formfield 'bet_amount' }}</p>
+
+    <p>
+        <label for="id_bet_odds">Choose your odds:</label>
+        <input type="range" id="id_bet_odds" name="bet_odds"
+               min="{{ MIN_ODDS }}" max="{{ MAX_ODDS }}" step="50"
+               value="{{ CURRENT_ODDS }}">
+        <span id="odds_value">{{ CURRENT_ODDS }}</span>
+    </p>
+    {{ formfield_errors 'bet_odds' }}
+
+    <script>
+        const slider = document.getElementById('id_bet_odds');
+        const output = document.getElementById('odds_value');
+        output.innerText = slider.value;  // initialize display
+        slider.oninput = function() { output.innerText = this.value; }
+
+        // ensure bet_amount min 0
+        const betInput = document.getElementById('id_bet_amount');
+        betInput.setAttribute('min', 0);
+        if (!betInput.value) { betInput.value = 0; }
+    </script>
+
+    <p>Example payouts for a bet of $10:</p>
+    <ul>
+        <li>Odds -200: Win $15, Lose $10</li>
+        <li>Odds -100: Win $20, Lose $10</li>
+        <li>Odds 0 (even): Win $10, Lose $10</li>
+        <li>Odds +100: Win $20, Lose $10</li>
+        <li>Odds +200: Win $30, Lose $10</li>
+    </ul>
+
+    <input type="submit" value="Place Bet">
+</form>
+
+{% endblock %}

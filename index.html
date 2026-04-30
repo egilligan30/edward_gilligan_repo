@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Edward Gilligan — Economics & Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:       #1a2e5a;
+      --navy-deep:  #0f1d3a;
+      --navy-mid:   #2a4480;
+      --orange:     #e57200;
+      --orange-lt:  #f4a94a;
+      --paper:      #f7f5f1;
+      --cream:      #edeae3;
+      --ink:        #111111;
+      --muted:      #5a5650;
+      --rule:       #ccc8bf;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .orange-bar {
+      height: 5px;
+      background: linear-gradient(90deg, var(--orange), var(--orange-lt), var(--orange));
+    }
+
+    header {
+      background: var(--navy-deep);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        -55deg, transparent, transparent 40px,
+        rgba(255,255,255,0.018) 40px, rgba(255,255,255,0.018) 41px
+      );
+      pointer-events: none;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3.5rem 2.5rem 0;
+      position: relative;
+    }
+
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--orange-lt);
+      margin-bottom: 1.4rem;
+    }
+
+    .name-block {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.25rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      font-weight: 900;
+      line-height: 0.93;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.2rem;
+      color: #fff;
+    }
+
+    h1 em { font-style: italic; color: var(--orange-lt); }
+
+    .headshot-wrap img {
+      width: 200px;
+      height: auto;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255,255,255,0.2);
+    }
+
+    .header-tagline {
+      margin-top: 0rem;
+      font-size: 0.975rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 540px;
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .nav-strip {
+      display: flex;
+      margin-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-strip a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.48);
+      text-decoration: none;
+      padding: 1rem 1.4rem;
+      border-right: 1px solid rgba(255,255,255,0.07);
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-strip a:hover { color: var(--orange-lt); background: rgba(255,255,255,0.04); }
+
+    main { max-width: 960px; margin: 0 auto; padding: 0 2.5rem; }
+
+    section {
+      padding: 4.5rem 0;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      transform: translateY(22px);
+      animation: fadeUp 0.65s ease forwards;
+    }
+
+    section:nth-child(1) { animation-delay: 0.1s; }
+    section:nth-child(2) { animation-delay: 0.2s; }
+    section:nth-child(3) { animation-delay: 0.3s; }
+    section:nth-child(4) { animation-delay: 0.4s; }
+    section:nth-child(5) { animation-delay: 0.5s; }
+    section:nth-child(6) { animation-delay: 0.6s; }
+    section:nth-child(7) { animation-delay: 0.7s; }
+
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text p { font-size: 0.93rem; color: #333; margin-bottom: 1rem; }
+
+    /* GRAPH GALLERY */
+    .gallery-panel { border: 1px solid var(--rule); overflow: hidden; }
+
+    .gallery-header {
+      background: var(--navy);
+      color: #fff;
+      padding: 0.85rem 1.4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .gallery-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--orange);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .graph-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--rule);
+      background: #fff;
+      overflow-x: auto;
+    }
+
+    .graph-tab {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.59rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.1rem;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color 0.18s, border-color 0.18s;
+      flex-shrink: 0;
+    }
+
+    .graph-tab.active { color: var(--navy); border-bottom-color: var(--orange); font-weight: 500; }
+    .graph-tab:hover:not(.active) { color: var(--navy-mid); }
+
+    .graph-display {
+      padding: 1.2rem;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 240px;
+    }
+
+    .graph-display img {
+      max-width: 100%;
+      max-height: 260px;
+      object-fit: contain;
+      display: block;
+      transition: opacity 0.25s;
+    }
+
+    .graph-caption {
+      padding: 0.75rem 1.3rem;
+      background: var(--cream);
+      font-size: 0.76rem;
+      color: var(--muted);
+      font-style: italic;
+      border-top: 1px solid var(--rule);
+      line-height: 1.5;
+    }
+
+    /* PROJECTS */
+    .projects-grid { display: flex; flex-direction: column; }
+
+    .project-card {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      border: 1px solid var(--rule);
+      border-bottom: none;
+      transition: background 0.18s;
+    }
+
+    .project-card:last-child { border-bottom: 1px solid var(--rule); }
+    .project-card:hover { background: var(--cream); }
+
+    .project-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: var(--navy);
+      opacity: 0.18;
+      padding: 1.8rem 1.2rem;
+      border-right: 1px solid var(--rule);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .project-body { padding: 1.6rem 1.8rem; }
+
+    .project-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.35rem;
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+      line-height: 1.3;
+      color: var(--navy-deep);
+    }
+
+    .project-desc {
+      font-size: 0.855rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--navy);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 1px;
+      transition: color 0.18s, border-color 0.18s;
+    }
+
+    .project-link:hover { color: var(--orange); border-color: var(--orange); }
+
+    /* CODE SAMPLES */
+    .code-lang-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 0;
+    }
+
+    .code-lang-tab {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.65rem 1.3rem;
+      border: 1px solid var(--rule);
+      border-bottom: none;
+      background: var(--cream);
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+      margin-right: -1px;
+      position: relative;
+    }
+
+    .code-lang-tab.active {
+      background: var(--navy-deep);
+      color: var(--orange-lt);
+      border-color: var(--navy-deep);
+      z-index: 1;
+    }
+
+    .code-lang-tab:hover:not(.active) { background: var(--paper); color: var(--navy); }
+
+    .code-sample-panel {
+      display: none;
+      border: 1px solid var(--rule);
+      overflow: hidden;
+    }
+
+    .code-sample-panel.active { display: block; }
+
+    .code-sample-header {
+      background: var(--navy-deep);
+      padding: 0.75rem 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .code-sample-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .code-sample-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange-lt);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(244,169,74,0.3);
+      padding-bottom: 1px;
+      transition: color 0.18s;
+    }
+
+    .code-sample-link:hover { color: #fff; }
+
+    .code-block {
+      background: #0f1d3a;
+      padding: 1.5rem 1.6rem;
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 420px;
+      margin: 0;
+    }
+
+    .code-block code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.775rem;
+      line-height: 1.75;
+      color: #c9d1d9;
+      white-space: pre;
+      display: block;
+    }
+
+    .tok-kw  { color: #ff7b72; }
+    .tok-fn  { color: #d2a8ff; }
+    .tok-str { color: #a5d6ff; }
+    .tok-cm  { color: #6e7f96; font-style: italic; }
+    .tok-num { color: #f4a94a; }
+    .tok-op  { color: #79c0ff; }
+
+    .code-sample-desc {
+      padding: 0.85rem 1.3rem;
+      background: var(--cream);
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+      border-top: 1px solid var(--rule);
+      line-height: 1.5;
+    }
+
+    /* COURSEWORK */
+    .courses-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+
+    .course-group h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy-deep);
+      margin-bottom: 1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid var(--orange);
+      display: inline-block;
+    }
+
+    .course-list { list-style: none; }
+
+    .course-list li {
+      font-size: 0.875rem;
+      padding: 0.48rem 0;
+      border-bottom: 1px solid var(--rule);
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .course-list li::before {
+      content: '—';
+      color: var(--orange);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    /* CONTACT */
+    .contact-row { display: flex; gap: 2.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .contact-item { display: flex; flex-direction: column; gap: 0.2rem; }
+
+    .contact-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .contact-value {
+      font-size: 0.9rem;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 1px;
+      transition: color 0.18s, border-color 0.18s;
+    }
+
+    .contact-value:hover { color: var(--orange); border-color: var(--orange); }
+
+    .resume-btn {
+      display: inline-block;
+      background: var(--navy-deep);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.8rem 1.8rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: background 0.18s;
+    }
+
+    .resume-btn:hover { background: var(--orange); }
+
+    footer {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--rule);
+    }
+
+    .footer-name { font-family: 'Playfair Display', serif; font-style: italic; color: var(--muted); font-size: 0.9rem; }
+    .footer-uva { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; color: var(--rule); }
+
+    @media (max-width: 660px) {
+      .about-grid, .courses-grid { grid-template-columns: 1fr; }
+      .name-block { flex-direction: column-reverse; align-items: flex-start; }
+      h1 { font-size: 2.8rem; }
+      .nav-strip { flex-wrap: wrap; }
+      .code-lang-tabs { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="orange-bar"></div>
+
+<header>
+  <div class="header-inner">
+    <div class="eyebrow">Portfolio — Economics &amp; Analytics · University of Virginia</div>
+    <div class="name-block">
+      <h1>Edward Gilligan</h1>
+      <div class="headshot-wrap">
+        <img src="IMG_8338 (1).PNG" alt="Edward Gilligan" />
+      </div>
+    </div>
+    <p class="header-tagline">4th Year Economics, Classics, and Mathematics undergraduate at the University of Virginia — applied research, quantitative methods, markets &amp; policy.</p>
+    <nav class="nav-strip">
+      <a href="#about">About</a>
+      <a href="#work-samples">Work Visualizations</a>
+      <a href="#projects">Projects</a>
+      <a href="#code-samples">Code Samples</a>
+      <a href="#coursework">Coursework</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section id="about">
+    <div class="section-label">01 — About Me</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a 4th year Economics undergraduate at UVA with a strong interest in applied research, predictive methods, and understanding how markets and policies shape real-world outcomes.</p>
+        <p>My academic focus spans industrial organization, behavioral and experimental economics, and econometrics. As such, I enjoy working at the intersection of economic theory and data.</p>
+        <p>I currently serve as a Research Assistant in the UVA Department of Economics, collaborating with faculty on projects in behavioral economics and applied/historical IO. My work includes data construction and cleaning, regressions and data analysis, experiment design, and feedback on empirical strategies.</p>
+      </div>
+      <div class="about-text">
+        <p>In my coursework and independent projects, I've built large-scale structural demand models using supermarket scanner data, conducted causal analyses with panel datasets to evaluate policy impacts, leveraged Chebyshev Distance and Monte Carlo simulations to predict March Madness, and developed behavioral simulations in Python using oTree.</p>
+        <p>To complete these projects, I have leveraged my experience in Python and Stata for data construction and analysis, and my knowledge of R and SQL to harmonize, clean, and visualize (ggplot) datasets.</p>
+        <p>I'm interested in pursuing graduate study in economics or a related field and generally using quantitative methods to predict and optimize market outcomes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="work-samples">
+    <div class="section-label">02 — Work Visualizations</div>
+    <h2>Selected Figures</h2>
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:2rem; max-width:560px;">Charts and visualizations from completed research projects. Click the tabs to browse across papers.</p>
+
+    <div class="gallery-panel">
+      <div class="gallery-header">
+        <span class="gallery-dot"></span> Research Visualizations
+      </div>
+      <div class="graph-tabs">
+        <button class="graph-tab active" onclick="showGraph(0)">Revenue Impact</button>
+        <button class="graph-tab" onclick="showGraph(1)">Consumer Welfare</button>
+        <button class="graph-tab" onclick="showGraph(2)">Seed vs Wins</button>
+        <button class="graph-tab" onclick="showGraph(3)">Title Contenders</button>
+      </div>
+      <div class="graph-display">
+        <img id="graph-img" src="revenue_comparison_bar.png" alt="Research figure" />
+      </div>
+      <div class="graph-caption" id="graph-caption">
+        <strong>Demand Estimation for Oatmeal</strong> — Total revenue change across five counterfactual pricing scenarios. The uniform +10% price increase is the only strategy that increases total revenue (+$589,519), while cuts targeting elastic or instant segments sharply reduce it.
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-label">03 — Completed Projects</div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-num">01</div>
+        <div class="project-body">
+          <div class="project-tag">Sports Analytics · R · Probability Applications</div>
+          <div class="project-title">Forecasting the 2026 NCAA Tournament</div>
+          <p class="project-desc">A simulation-based bracket prediction framework integrating logistic regression, nearest-neighbor similarity, and 10,000-iteration Monte Carlo simulation to predict national championship contenders and identify potential Cinderella teams.</p>
+          <a class="project-link" href="marchmadnessproject.pdf" target="_blank">Download Paper →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">02</div>
+        <div class="project-body">
+          <div class="project-tag">Industrial Organization · Stata · Logit Model</div>
+          <div class="project-title">Demand Estimation for Oatmeal</div>
+          <p class="project-desc">Berry logit demand estimation using 750,000+ Dominick's scanner observations. Estimates price elasticities (~1.75 avg), substitution patterns, and simulates counterfactual pricing impacts on revenue and consumer welfare.</p>
+          <a class="project-link" href="demandestimationnote.pdf" target="_blank">Download Paper →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">03</div>
+        <div class="project-body">
+          <div class="project-tag">Applied Econometrics · Stata · Causal Inference</div>
+          <div class="project-title">Sports Betting &amp; Bankruptcy Research</div>
+          <p class="project-desc">Empirical analysis of the causal effect of online sports betting legalization on U.S. bankruptcy rates and mortgage delinquency, leveraging quasi-experimental variation from post-PASPA state-level rollouts.</p>
+          <a class="project-link" href="bankruptcyosb.pdf" target="_blank">Download Paper →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">04</div>
+        <div class="project-body">
+          <div class="project-tag">Python · SymPy · Linear Algebra</div>
+          <div class="project-title">Linear Algebra Calculator</div>
+          <p class="project-desc">A Python tool using SymPy for step-by-step RREF row reduction, determinant computation, and matrix inversion with full verification — designed for education and transparency.</p>
+          <a class="project-link" href="matrixcalc.py" target="_blank">Download Code →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">05</div>
+        <div class="project-body">
+          <div class="project-tag">Python · oTree · Behavioral and Experimental Economics</div>
+          <div class="project-title">Experimental Economics oTree Game</div>
+          <p class="project-desc">An oTree-based behavioral simulation modeling stochastic betting behavior, mortgage payments, and bankruptcy dynamics across multiple experimental rounds, designed for modularity and controlled financial decision simulation.</p>
+          <a class="project-link" href="https://github.com/egilligan30/Gilliganprojects/tree/main/sportsbettingexp" target="_blank">View on GitHub →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="code-samples">
+    <div class="section-label">04 — Code Samples</div>
+    <h2>Selected Snippets</h2>
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:2rem; max-width:560px;">Representative code from completed projects across Python, Stata, R, Matlab, and SQL. Click the tabs to switch languages; download links point to the full source files.</p>
+
+    <div class="code-lang-tabs">
+      <button class="code-lang-tab active" onclick="showCode(this,'python')">Python</button>
+      <button class="code-lang-tab" onclick="showCode(this,'stata')">Stata</button>
+      <button class="code-lang-tab" onclick="showCode(this,'r')">R</button>
+      <button class="code-lang-tab" onclick="showCode(this,'matlab')">Matlab</button>
+      <button class="code-lang-tab" onclick="showCode(this,'sql')">SQL</button>
+    </div>
+
+    <!-- PYTHON -->
+    <div class="code-sample-panel active" id="code-python">
+      <div class="code-sample-header">
+        <span class="code-sample-title">cottonclean.py — Historical Cotton Data Cleaning (Polars)</span>
+        <a class="code-sample-link" href="https://github.com/egilligan30/Gilliganprojects" target="_blank">View on GitHub →</a>
+      </div>
+      <div class="code-block"><code><span class="tok-cm">"""
+Part of the larger cottonclean.py
+=============================================================
+Cleans historical cotton industrial revolution data using Polars.
+
+Three cleaning tasks:
+  1. Forward-fill Town / District across blank rows.
+  2. Contact info that ended up in Firm/Owner Name gets moved to
+     Pay Day / Notes and saved in an audit column so nothing is lost.
+  3. Weft / Twist columns are checked against a free-text Details field —
+     fixes swaps, fills in missing values, and flags entries that look made up.
+
+On the source data:
+  The source is Worrall's Cotton Spinners' &amp; Manufacturers'
+  Directory, a late Victorian / Edwardian trade directory of
+  cotton firms. The pages were photocopied, scanned to PDF, and then
+  imputed into a structured Excel format by Claude using
+  a standardised prompt applied to every set of four pages. The three
+  cleaning tasks here correct systematic imputation errors that arise from
+  the mismatch between Worrall's layout and a fixed extraction template.
+
+  In Worrall's, each firm's entry is a dense prose block — firm name, mill
+  name, spindle and loom counts, weft and twist counts, products, pay day,
+  telegram address, and telephone number all run together in a single
+  paragraph with no column separators. Locations are not repeated per
+  entry; instead, a bold town header (e.g. BACUP, BLACKBURN) covers a
+  block of firms, and sub-location headers (e.g. BRITANNIA, STACKSTEADS)
+  cover smaller groups within that block. Claude imputed row by row against
+  a fixed column template, which produces three predictable error types:
+  location cells go blank after the first row of each block; contact
+  details that appear at the end of a prose entry get absorbed into the
+  firm name field; and weft / twist counts, which Worrall's gives inline
+  as e.g. "15s/24s weft, 18s/20s twist", are sometimes swapped or only
+  partially extracted into the two structured columns. None of these are
+  treated as data loss; the goal is to recover intent while keeping an
+  auditable record of every change made.
+
+Note on map_rows():
+  Fixes 2 and 3 need to look at multiple columns at once and make decisions
+  based on what's in them which isn't something a single Polars expression
+  can do cleanly. So map_rows() is used on purpose. I trade a bit of speed
+  for correct logic. On a big dataset would probably be best to rewrite
+  this as a vectorised expression.
+
+Dependencies: polars, re
+"""</span>
+
+<span class="tok-kw">import</span> polars <span class="tok-kw">as</span> pl
+<span class="tok-kw">import</span> re
+
+
+<span class="tok-cm"># =============================================================================
+# KEYWORD LISTS
+# These are used by the functions below to figure out what kind of content
+# is sitting in a cell.
+# The terms reflect how contact information appears in Worrall's directory
+# entries. Telegram addresses follow the pattern 'Telegrams, "Alias, Town"'
+# and telephone numbers appear as 'Telephone No. X' or 'Telephone Nos.—
+# Mill A, X; Mill B, Y' for firms with multiple sites. Both appear at the
+# end of the prose entry block, immediately after pay day information, which
+# is why Claude's fixed-column prompt sometimes pulled them into the firm
+# name field rather than leaving them in Pay Day / Notes.
+# =============================================================================</span>
+
+CONTACT_WORDS = [
+    <span class="tok-str">"telephone"</span>, <span class="tok-str">"telegrams"</span>, <span class="tok-str">"telegram"</span>, <span class="tok-str">"tel"</span>, <span class="tok-str">"phone"</span>,
+    <span class="tok-str">"t.n."</span>, <span class="tok-str">"t.a."</span>, <span class="tok-str">"national telephone"</span>, <span class="tok-str">"post office"</span>,
+]
+
+
+<span class="tok-cm"># =============================================================================
+# HELPER PREDICATES &amp; STRING UTILITIES
+# =============================================================================</span>
+
+<span class="tok-kw">def</span> <span class="tok-fn">looks_like_contact_info</span>(text: str) -> bool:
+    <span class="tok-cm">"""
+    Returns True if the text looks like a phone or telegram contact.
+    The short-string-with-number heuristic catches bare telephone numbers
+    that Claude extracted without the 'Telephone No.' label. In Worrall's
+    these are typically 2–4 digit local exchange numbers, short enough that
+    a number-only string under 60 characters is almost certainly not a firm
+    name or product description.
+    """</span>
+    <span class="tok-kw">if not</span> text:
+        <span class="tok-kw">return False</span>
+    t = text.lower().strip()
+    <span class="tok-kw">if</span> <span class="tok-fn">any</span>(word <span class="tok-kw">in</span> t <span class="tok-kw">for</span> word <span class="tok-kw">in</span> CONTACT_WORDS):
+        <span class="tok-kw">return True</span>
+    <span class="tok-cm"># a short string with a 3+ digit number is probably a phone/reference number</span>
+    <span class="tok-kw">if</span> re.<span class="tok-fn">search</span>(<span class="tok-str">r'\b(no\.?\s*)?\d{3,}\b'</span>, t) <span class="tok-kw">and</span> <span class="tok-fn">len</span>(t) &lt; <span class="tok-num">60</span>:
+        <span class="tok-kw">return True</span>
+    <span class="tok-kw">return False</span>
+
+
+<span class="tok-kw">def</span> <span class="tok-fn">append_note</span>(existing: str | <span class="tok-kw">None</span>, addition: str) -> str:
+    <span class="tok-cm">"""
+    Tacks addition onto existing, separated by a semicolon.
+    The strip(";") handles edge cases where existing already ends with a
+    semicolon. This happens when a row had partially cleaned notes from
+    an earlier pass.
+    """</span>
+    existing = existing.strip().strip(<span class="tok-str">";"</span>).strip() <span class="tok-kw">if</span> existing <span class="tok-kw">else</span> <span class="tok-str">""</span>
+    addition = addition.strip()
+    <span class="tok-kw">return</span> (existing + <span class="tok-str">"; "</span> + addition).strip(<span class="tok-str">"; "</span>) <span class="tok-kw">if</span> existing <span class="tok-kw">else</span> addition
+
+
+<span class="tok-kw">def</span> <span class="tok-fn">send_to_extra</span>(current_extra: str | <span class="tok-kw">None</span>, value: str, source_col: str) -> str:
+    <span class="tok-cm">"""
+    Adds a displaced value to the audit column, tagged with where it came from.
+    Returns a new string instead of changing the existing one. This keeps
+    things consistent with how Polars works, since it never edits data in place.
+    The source_col tag matters for verification. Worrall's entries are
+    recoverable from the original PDFs, but going back to a scanned photocopy
+    is slow. The tag lets you identify and manually review any case where the
+    heuristic may have misfired without leaving the main columns in an
+    ambiguous state.
+    """</span>
+    value = value.strip()
+    <span class="tok-kw">if not</span> value:
+        <span class="tok-kw">return</span> current_extra <span class="tok-kw">or</span> <span class="tok-str">""</span>
+    tag      = <span class="tok-str">f"[from {source_col}] {value}"</span>
+    existing = (current_extra <span class="tok-kw">or</span> <span class="tok-str">""</span>).strip(<span class="tok-str">" | "</span>)
+    <span class="tok-kw">return</span> (existing + <span class="tok-str">" | "</span> + tag).strip(<span class="tok-str">" | "</span>) <span class="tok-kw">if</span> existing <span class="tok-kw">else</span> tag
+
+
+EXTRA_COL = <span class="tok-str">"extra_updated"</span>   <span class="tok-cm"># name of the audit column</span>
+
+
+<span class="tok-cm"># =============================================================================
+# FIX 1 — FORWARD-FILL LOCATION
+# Town / District is usually only written once for a specific group of rows. This
+# copies it down into the blank rows below so every row has a value.
+# forward_fill() does exactly that. It takes the last non-null value and
+# repeats it downward until it hits another non-null value.
+# with_columns() swaps in the updated column and leaves everything else alone.
+# The function takes and returns a LazyFrame so nothing actually runs until
+# .collect() is called later, i.e., the point of lazy evaluation.
+#
+# On the data:
+# In Worrall's, town and sub-location names are printed as bold section
+# headers — BACUP, then BRITANNIA and STACKSTEADS beneath it — covering
+# all firm entries that follow until the next header. Claude's prompt
+# extracted entries row by row against a fixed template, so it correctly
+# populated Town / District for the first row under each header but left
+# it blank for every subsequent row in that block. The blanks are therefore
+# structural: they mean "same location as the row above", not "location
+# unknown". Forward-filling recovers that without making any assumption
+# about the data that isn't already explicit in the original directory layout.
+# =============================================================================</span>
+
+<span class="tok-kw">def</span> <span class="tok-fn">forward_fill_location</span>(lf: pl.LazyFrame) -> pl.LazyFrame:
+    <span class="tok-cm">"""Copies Town / District down into blank rows below it."""</span>
+    <span class="tok-kw">return</span> lf.<span class="tok-fn">with_columns</span>(
+        pl.<span class="tok-fn">col</span>(<span class="tok-str">"Town / District"</span>).<span class="tok-fn">forward_fill</span>()
+    )
+
+
+<span class="tok-cm"># =============================================================================
+# FIX 2 — CONTACT INFO IN FIRM/OWNER NAME
+# Sometimes a phone or telegram number got entered into the firm name field.
+# This splits that field on semicolons and newlines, pulls out any contact
+# fragments, moves them to the Notes column, and logs them in the audit column.
+# map_rows() used because this fix needs to read one column, make a decision,
+# then write to two other columns all in the same pass. A single Polars
+# expression can't do that, so drop into Python row-by-row logic instead.
+# Steps:
+#   1. lf.collect()       — turn the LazyFrame into a real df so we can loop over it
+#   2. df.select(cols)    — only grab the columns we're actually changing
+#   3. .map_rows(fn)      — run our Python function on each row; gives back a df
+#                           with columns named column_0, column_1, etc.
+#   4. .rename(...)       — put the real column names back using their positions
+#   5. with_columns(...)  — write the fixed columns back into the full df
+#   6. df.lazy()          — wrap it back up as a LazyFrame for the next step
+#
+# On the data:
+# In Worrall's, a firm's telephone number and telegram address appear at
+# the end of its prose entry block, immediately after pay day information
+# and sometimes after a second address or warehouse location. Because
+# Claude's extraction prompt used a fixed column template rather than parsing
+# the prose sequentially, it occasionally ran contact details into the firm
+# name field. This most likely occured when a long entry caused the model to lose track
+# of field boundaries mid-paragraph. The pattern is consistent: telegram
+# addresses follow 'Telegrams, "Alias, Town."' and telephone numbers follow
+# 'Telephone No. X', so the keyword list catches them reliably. Contact
+# details are moved to Pay Day / Notes rather than dropped because telegram
+# aliases and early telephone exchange numbers are useful for cross-
+# referencing firms across different years/editions of Worrall's or against
+# contemporary Post Office directories.
+# =============================================================================</span>
+
+<span class="tok-kw">def</span> <span class="tok-fn">_fix_contact_firm_row</span>(row: dict) -> dict:
+    <span class="tok-cm">"""
+    The actual row-level logic. Gets a dict of {column: value},
+    changes what needs changing, and gives it back.
+    """</span>
+    firm  = row.get(<span class="tok-str">"Firm or Owner Name"</span>) <span class="tok-kw">or</span> <span class="tok-str">""</span>
+    notes = row.get(<span class="tok-str">"Pay Day / Notes"</span>) <span class="tok-kw">or</span> <span class="tok-str">""</span>
+    extra = row.get(EXTRA_COL) <span class="tok-kw">or</span> <span class="tok-str">""</span>
+
+    <span class="tok-kw">if not</span> firm:
+        <span class="tok-kw">return</span> row   <span class="tok-cm"># nothing to do if the field is empty</span>
+
+    <span class="tok-cm"># split on semicolons or newlines. both appear as delimiters in the original data</span>
+    parts         = re.<span class="tok-fn">split</span>(<span class="tok-str">r'[;\n]+'</span>, firm)
+    keep_parts    = []
+    contact_parts = []
+
+    <span class="tok-kw">for</span> part <span class="tok-kw">in</span> parts:
+        part = part.strip()
+        <span class="tok-kw">if not</span> part:
+            <span class="tok-kw">continue</span>
+        <span class="tok-kw">if</span> <span class="tok-fn">looks_like_contact_info</span>(part):
+            contact_parts.<span class="tok-fn">append</span>(part)   <span class="tok-cm"># flag it for moving</span>
+        <span class="tok-kw">else</span>:
+            keep_parts.<span class="tok-fn">append</span>(part)      <span class="tok-cm"># actual firm name fragment, keep it</span>
+
+    <span class="tok-kw">if</span> contact_parts:
+        displaced = <span class="tok-str">"; "</span>.<span class="tok-fn">join</span>(contact_parts)
+        extra = <span class="tok-fn">send_to_extra</span>(extra, displaced, <span class="tok-str">"Firm or Owner Name"</span>)   <span class="tok-cm"># log it</span>
+        row[<span class="tok-str">"Firm or Owner Name"</span>] = <span class="tok-str">", "</span>.<span class="tok-fn">join</span>(keep_parts) <span class="tok-kw">if</span> keep_parts <span class="tok-kw">else None</span>
+        row[<span class="tok-str">"Pay Day / Notes"</span>]    = <span class="tok-fn">append_note</span>(notes, displaced)       <span class="tok-cm"># move it</span>
+        row[EXTRA_COL]            = extra
+
+    <span class="tok-kw">return</span> row
+
+
+<span class="tok-kw">def</span> <span class="tok-fn">fix_contact_in_firm_name</span>(lf: pl.LazyFrame) -> pl.LazyFrame:
+    <span class="tok-cm">"""Runs the contact-in-firm-name fix across every row."""</span>
+    target_cols = [<span class="tok-str">"Firm or Owner Name"</span>, <span class="tok-str">"Pay Day / Notes"</span>, EXTRA_COL]
+
+    df = lf.<span class="tok-fn">collect</span>()   <span class="tok-cm"># step 1; we need a real df for map_rows()</span>
+
+    updated = (
+        df.<span class="tok-fn">select</span>(target_cols)   <span class="tok-cm"># step 2; only the columns we're touching</span>
+          .<span class="tok-fn">map_rows</span>(
+              <span class="tok-cm"># step 3; convert each row tuple to a dict, run the fix,
+              # then unpack the result back to a tuple in the same column order</span>
+              <span class="tok-kw">lambda</span> row: <span class="tok-fn">tuple</span>(
+                  <span class="tok-fn">_fix_contact_firm_row</span>(<span class="tok-fn">dict</span>(<span class="tok-fn">zip</span>(target_cols, row))).<span class="tok-fn">get</span>(c)
+                  <span class="tok-kw">for</span> c <span class="tok-kw">in</span> target_cols
+              )
+          )
+          <span class="tok-cm"># step 4; map_rows() names columns column_0, column_1, etc.
+          # this renames them back using their index position</span>
+          .<span class="tok-fn">rename</span>({<span class="tok-str">f"column_{i}"</span>: c <span class="tok-kw">for</span> i, c <span class="tok-kw">in</span> <span class="tok-fn">enumerate</span>(target_cols)})
+    )
+
+    <span class="tok-kw">for</span> col <span class="tok-kw">in</span> target_cols:
+        df = df.<span class="tok-fn">with_columns</span>(updated[col].<span class="tok-fn">alias</span>(col))   <span class="tok-cm"># step 5; write back</span>
+
+    <span class="tok-kw">return</span> df.<span class="tok-fn">lazy</span>()   <span class="tok-cm"># step 6; back to lazy so the pipeline can continue</span>
+
+
+<span class="tok-cm"># =============================================================================
+# FIX 3 — WEFT / TWIST FIXES
+# Same map_rows() approach as Fix 2. Checks the Weft and Twist columns
+# against what the Details field actually says. It handles three situations:
+#   3a. One value meant to apply to both columns (in the data this appears as
+#       "xx/yy weft and twist" or "twist and weft xx/yy" in the Details field)
+#   3b. Two separate values in Details — fix if they're swapped, fill if missing
+#   3c. A number sitting in Weft with no mention of weft in Details is
+#       inconsistent with the source field and is moved to the audit column
+#
+# On the data:
+# Worrall's gives weft and twist counts inline within the prose entry, in
+# forms like "15s/24s weft, 18s/20s twist" or "20s/40s weft and twist"
+# (the latter meaning one count applies to both). Claude's fixed-template
+# prompt extracted these into two separate structured columns, but the
+# inline format made it error-prone: values are sometimes swapped between
+# columns, sometimes only one is extracted when two were present, and
+# occasionally a single combined value is placed in only one column.
+# The Weft / Twist Details column preserves Claude's raw extraction of
+# the inline text, which is used here as the truth to check and
+# correct the structured columns against. Case 3c handles a seperate
+# problem: a numeric value in the Weft column that Details never associates
+# with weft is likely a column-shift imputation error. It is moved to the
+# audit column rather than silently dropped or left in place.
+# =============================================================================</span>
+
+<span class="tok-kw">def</span> <span class="tok-fn">_fix_weft_twist_row</span>(row: dict) -> dict:
+    <span class="tok-cm">"""Row-level weft/twist check and correction."""</span>
+    weft    = row.get(<span class="tok-str">"Weft (?)"</span>) <span class="tok-kw">or</span> <span class="tok-str">""</span>
+    twist   = row.get(<span class="tok-str">"Twist"</span>) <span class="tok-kw">or</span> <span class="tok-str">""</span>
+    details = row.get(<span class="tok-str">"Weft / Twist Details"</span>) <span class="tok-kw">or</span> <span class="tok-str">""</span>
+    extra   = row.get(EXTRA_COL) <span class="tok-kw">or</span> <span class="tok-str">""</span>
+
+    <span class="tok-cm"># 3a — look for a phrase like "xx/yy weft and twist" meaning one value for both.
+    # the second pattern handles reversed word order ("twist and weft xx/yy"),
+    # which appears regularly in combined-value entries in this dataset, i.e.,
+    # it's a second structural case.</span>
+    combined_match = re.<span class="tok-fn">search</span>(
+        <span class="tok-str">r'(\d[\d/\*]*)\s+(?:weft\s+and\s+twist|twist\s+and\s+weft)'</span>,
+        details, re.IGNORECASE
+    ) <span class="tok-kw">or</span> re.<span class="tok-fn">search</span>(
+        <span class="tok-str">r'(?:weft\s+and\s+twist|twist\s+and\s+weft)\s+([\d/\*]+)'</span>,
+        details, re.IGNORECASE
+    )
+
+    <span class="tok-kw">if</span> combined_match:
+        shared = combined_match.<span class="tok-fn">group</span>(<span class="tok-num">1</span>)
+        row[<span class="tok-str">"Weft (?)"</span>] = shared
+        row[<span class="tok-str">"Twist"</span>]    = shared
+        <span class="tok-kw">return</span> row   <span class="tok-cm"># done for this row, no need to keep checking</span>
+
+    <span class="tok-cm"># 3b — pull out whatever weft and twist values Details mentions separately</span>
+    <span class="tok-kw">if</span> details:
+        dw = re.<span class="tok-fn">search</span>(<span class="tok-str">r'weft[^\d]*(\d[\d/\*]*)'</span>,  details, re.IGNORECASE)
+        dt = re.<span class="tok-fn">search</span>(<span class="tok-str">r'twist[^\d]*(\d[\d/\*]*)'</span>, details, re.IGNORECASE)
+
+        <span class="tok-kw">if</span> dw <span class="tok-kw">and</span> dt:
+            exp_weft, exp_twist = dw.<span class="tok-fn">group</span>(<span class="tok-num">1</span>), dt.<span class="tok-fn">group</span>(<span class="tok-num">1</span>)
+
+            <span class="tok-cm"># if the two columns are just swapped, swap them back.
+            # this is the most common structured-column error: Claude
+            # extracted the right values from the Worrall's inline text
+            # but placed them in the wrong fields.</span>
+            <span class="tok-kw">if</span> weft == exp_twist <span class="tok-kw">and</span> twist == exp_weft:
+                row[<span class="tok-str">"Weft (?)"</span>], row[<span class="tok-str">"Twist"</span>] = twist, weft
+                weft, twist = row[<span class="tok-str">"Weft (?)"</span>], row[<span class="tok-str">"Twist"</span>]
+
+            <span class="tok-cm"># if weft is holding the twist value and twist is empty, fix both.
+            # happens when Claude extracted only one value from the inline
+            # text and defaulted to placing it in the first available column.</span>
+            <span class="tok-kw">if not</span> twist <span class="tok-kw">and</span> weft == exp_twist:
+                row[<span class="tok-str">"Twist"</span>], row[<span class="tok-str">"Weft (?)"</span>] = exp_twist, exp_weft
+                weft, twist = row[<span class="tok-str">"Weft (?)"</span>], row[<span class="tok-str">"Twist"</span>]
+
+            <span class="tok-cm"># fill in whichever one is still missing</span>
+            <span class="tok-kw">if not</span> row.get(<span class="tok-str">"Weft (?)"</span>): row[<span class="tok-str">"Weft (?)"</span>] = exp_weft
+            <span class="tok-kw">if not</span> row.get(<span class="tok-str">"Twist"</span>):    row[<span class="tok-str">"Twist"</span>]    = exp_twist
+
+        <span class="tok-cm"># only one was found, just fill in the missing one</span>
+        <span class="tok-kw">elif</span> dt <span class="tok-kw">and not</span> twist: row[<span class="tok-str">"Twist"</span>]    = dt.<span class="tok-fn">group</span>(<span class="tok-num">1</span>)
+        <span class="tok-kw">elif</span> dw <span class="tok-kw">and not</span> weft:  row[<span class="tok-str">"Weft (?)"</span>] = dw.<span class="tok-fn">group</span>(<span class="tok-num">1</span>)
+
+    <span class="tok-cm"># 3c — if there's a number in Weft but Details never mentions weft,
+    # the value is inconsistent with the source field. most likely a column-shift
+    # error during transcription. move it to the audit column rather than leave
+    # potentially misleading data in place — it stays recoverable there.</span>
+    weft = row.get(<span class="tok-str">"Weft (?)"</span>) <span class="tok-kw">or</span> <span class="tok-str">""</span>
+    <span class="tok-kw">if</span> weft <span class="tok-kw">and</span> details <span class="tok-kw">and</span> <span class="tok-str">"weft"</span> <span class="tok-kw">not in</span> details.lower():
+        <span class="tok-kw">if</span> re.<span class="tok-fn">fullmatch</span>(<span class="tok-str">r'[\d/\*,\s]+'</span>, weft.strip()):
+            row[EXTRA_COL]  = <span class="tok-fn">send_to_extra</span>(extra, weft, <span class="tok-str">"Weft (?)"</span>)
+            row[<span class="tok-str">"Weft (?)"</span>] = <span class="tok-kw">None</span>   <span class="tok-cm"># clear the cell rather than leave bad data</span>
+
+    <span class="tok-kw">return</span> row
+
+
+<span class="tok-kw">def</span> <span class="tok-fn">fix_weft_twist</span>(lf: pl.LazyFrame) -> pl.LazyFrame:
+    <span class="tok-cm">"""Runs the weft/twist correction across every row."""</span>
+    target_cols = [<span class="tok-str">"Weft (?)"</span>, <span class="tok-str">"Twist"</span>, <span class="tok-str">"Weft / Twist Details"</span>, EXTRA_COL]
+
+    df = lf.<span class="tok-fn">collect</span>()
+
+    updated = (
+        df.<span class="tok-fn">select</span>(target_cols)
+          .<span class="tok-fn">map_rows</span>(
+              <span class="tok-kw">lambda</span> row: <span class="tok-fn">tuple</span>(
+                  <span class="tok-fn">_fix_weft_twist_row</span>(<span class="tok-fn">dict</span>(<span class="tok-fn">zip</span>(target_cols, row))).<span class="tok-fn">get</span>(c)
+                  <span class="tok-kw">for</span> c <span class="tok-kw">in</span> target_cols
+              )
+          )
+          .<span class="tok-fn">rename</span>({<span class="tok-str">f"column_{i}"</span>: c <span class="tok-kw">for</span> i, c <span class="tok-kw">in</span> <span class="tok-fn">enumerate</span>(target_cols)})
+    )
+
+    <span class="tok-kw">for</span> col <span class="tok-kw">in</span> target_cols:
+        df = df.<span class="tok-fn">with_columns</span>(updated[col].<span class="tok-fn">alias</span>(col))
+
+    <span class="tok-kw">return</span> df.<span class="tok-fn">lazy</span>()</code></div>
+      <div class="code-sample-desc">Polars-based cleaning pipeline for Worrall's <em>Cotton Spinners' &amp; Manufacturers' Directory</em> — an industrial revolution (late 19th, early 20th century) trade directory digitised via Claude-assisted PDF extraction. Corrects three systematic imputation errors: forward-fills location headers across blank rows, removes telephone/telegram fragments absorbed into firm name fields, and reconciles weft/twist count columns against the raw Details field — fixing swaps, filling gaps, and moving inconsistent values to an auditable log rather than dropping them.</div>
+    </div>
+
+    <!-- STATA -->
+    <div class="code-sample-panel" id="code-stata">
+      <div class="code-sample-header">
+        <span class="code-sample-title">demandestimation.do — Flexible Demand Estimation &amp; Counterfactual Simulation</span>
+        <a class="code-sample-link" href="demandestimationnote.pdf" target="_blank">View paper →</a>
+      </div>
+      <div class="code-block"><code><span class="tok-cm">* ------------------------------------------------------------------
+* Purpose:
+* Estimate a flexible demand specification with price interactions
+* and high-dimensional fixed effects, retaining only variables with
+* meaningful within-store-week variation. Then simulate counterfactual
+* pricing to evaluate impacts on demand, revenue, and consumer welfare.
+*
+* Outline:
+* - Construct price interaction terms with key indicators
+* - Filter interactions and covariates by residual (within-FE) variation
+* - Estimate demand using reghdfe with selected variables
+* - Simulate counterfactual price changes
+* - Recover implied shares, quantities, and revenues
+* - Compute welfare via log-sum formula
+* - Visualize distributions of counterfactual outcomes
+* ------------------------------------------------------------------</span>
+
+
+<span class="tok-cm">* These are store/product characteristics we think might shift how
+* price-sensitive customers are — e.g., do shoppers near a competitor
+* react more to price? Do promo items behave differently?</span>
+<span class="tok-kw">local</span> dummies compnear compby compcub urban zone dtcomp farthest promo
+<span class="tok-kw">local</span> keep_interactions
+
+<span class="tok-kw">foreach</span> var <span class="tok-kw">of local</span> dummies {
+
+    <span class="tok-cm">* Interact price with each characteristic — this lets the price
+    * coefficient shift depending on, say, whether there's a nearby
+    * Costco or whether the product is on promotion</span>
+    <span class="tok-kw">gen</span> price_wmean_`var' = price_wmean * `var'
+
+    <span class="tok-cm">* Strip out store-week fixed effects to see how much variation
+    * is actually left — that residual variation is all that identifies us</span>
+    <span class="tok-fn">reghdfe</span> price_wmean_`var', absorb(store_week) resid
+    <span class="tok-fn">predict</span> resid_`var', resid
+    <span class="tok-fn">summarize</span> resid_`var'
+
+    <span class="tok-cm">* If the residual sd is tiny, the interaction is basically absorbed
+    * by the fixed effects and won't help us — drop it to keep the
+    * model clean and avoid spurious estimates</span>
+    <span class="tok-kw">if</span> r(sd) &gt; <span class="tok-num">0.05</span> {
+        <span class="tok-kw">local</span> keep_interactions <span class="tok-str">"`keep_interactions' price_wmean_`var'"</span>
+    }
+    <span class="tok-kw">else</span> {
+        <span class="tok-kw">drop</span> price_wmean_`var'
+        <span class="tok-fn">display</span> <span class="tok-str">"Dropped price_wmean*`var' due to low within-store-week variation (sd=`r(sd)')"</span>
+    }
+
+    <span class="tok-kw">drop</span> resid_`var'
+}
+
+<span class="tok-fn">display</span> <span class="tok-str">"Keeping interactions: `keep_interactions'"</span>
+
+
+<span class="tok-cm">* Same filter for the continuous covariates (income, age, education, etc.)
+* If a variable barely moves within a store-week, it can't tell us much
+* beyond what the fixed effect already captures</span>
+<span class="tok-kw">quietly</span> {
+    <span class="tok-kw">local</span> keep_covars
+    <span class="tok-kw">foreach</span> var <span class="tok-kw">of local</span> allcovars {
+
+        <span class="tok-fn">reghdfe</span> `var', absorb(store_week) resid
+        <span class="tok-fn">predict</span> resid_`var', resid
+        <span class="tok-fn">summarize</span> resid_`var'
+
+        <span class="tok-kw">if</span> r(sd) &gt; <span class="tok-num">0.05</span> {
+            <span class="tok-kw">local</span> keep_covars <span class="tok-str">"`keep_covars' `var'"</span>
+        }
+
+        <span class="tok-kw">drop</span> resid_`var'
+    }
+}
+
+<span class="tok-fn">display</span> <span class="tok-str">"Keeping covariates: `keep_covars'"</span>
+
+
+<span class="tok-cm">* Estimate the Berry logit demand model on whatever survived the
+* variation filter above. The ##c() syntax interacts price continuously
+* with each covariate — so e.g. price sensitivity can flex with local
+* income or age demographics. Store-week FEs absorb demand shocks common
+* to a market; UPC FEs handle persistent differences in product appeal.
+* Standard errors clustered at the store level.</span>
+<span class="tok-fn">eststo</span> large: <span class="tok-fn">reghdfe</span> y ///
+    price_wmean ///
+    c.price_wmean##c.(`keep_covars') ///
+    `keep_interactions' ///
+    , ///
+    absorb(store_week UPC) ///
+    vce(cluster store)
+
+<span class="tok-cm">* delta_hat is our predicted mean utility including fixed effects —
+* we need this to compute counterfactual shares later</span>
+<span class="tok-fn">predict</span> <span class="tok-kw">double</span> delta_hat, xb
+<span class="tok-fn">predict</span> yhat_large, xb
+
+
+<span class="tok-cm">****************************************************
+* Counterfactual: Uniform +10% price increase
+****************************************************</span>
+
+<span class="tok-cm">* Scenario 1: every product gets a flat 10% price increase</span>
+<span class="tok-kw">gen</span> <span class="tok-kw">double</span> price_cf_uniform = price_wmean * <span class="tok-num">1.10</span>
+
+<span class="tok-cm">* Shift predicted utility by the price change, scaled by each product's
+* own price coefficient (beta_price_j varies by product since it
+* incorporates the continuous interactions estimated above)</span>
+<span class="tok-kw">gen</span> <span class="tok-kw">double</span> delta_cf_uniform = delta_hat ///
+    + beta_price_j * (price_cf_uniform - price_wmean)
+        
+<span class="tok-cm">* Sum exp(delta) across all products in each store-week market —
+* this is the logit denominator we need to convert utilities to shares</span>
+<span class="tok-kw">bysort</span> store week: <span class="tok-kw">egen</span> <span class="tok-kw">double</span> denom_cf_uniform = <span class="tok-fn">total</span>(exp(delta_cf_uniform))
+
+<span class="tok-cm">* Standard logit share formula: exp(delta_j) / sum_k(exp(delta_k))</span>
+<span class="tok-kw">gen</span> <span class="tok-kw">double</span> share_cf_uniform = exp(delta_cf_uniform) / denom_cf_uniform
+
+<span class="tok-cm">* Scale shares back to quantities, holding market size (customer
+* traffic) fixed at its baseline level</span>
+<span class="tok-kw">gen</span> <span class="tok-kw">double</span> q_cf_uniform = share_cf_uniform * total_q_old
+
+<span class="tok-cm">* How much did each product's quantity change vs baseline?</span>
+<span class="tok-kw">gen</span> <span class="tok-kw">double</span> dq_uniform = q_cf_uniform - quantity_prod
+
+<span class="tok-cm">* Revenue = new price × new quantity; delta is the change vs baseline</span>
+<span class="tok-kw">gen</span> <span class="tok-kw">double</span> rev_cf_uniform = price_cf_uniform * q_cf_uniform
+<span class="tok-kw">gen</span> <span class="tok-kw">double</span> d_rev_uniform  = rev_cf_uniform - revenue_sum
+
+<span class="tok-cm">* Aggregate to store-week for market-level reporting</span>
+<span class="tok-kw">bysort</span> store week: <span class="tok-kw">egen</span> <span class="tok-kw">double</span> total_q_cf_uniform   = <span class="tok-fn">total</span>(q_cf_uniform)
+<span class="tok-kw">bysort</span> store week: <span class="tok-kw">egen</span> <span class="tok-kw">double</span> total_rev_cf_uniform = <span class="tok-fn">total</span>(rev_cf_uniform)
+
+<span class="tok-kw">gen</span> <span class="tok-kw">double</span> d_total_q_uniform   = total_q_cf_uniform - total_q_old
+<span class="tok-kw">gen</span> <span class="tok-kw">double</span> d_total_rev_uniform = total_rev_cf_uniform - total_rev_old
+
+<span class="tok-cm">* Consumer welfare via the log-sum formula: the change in the log of
+* the choice set's total "appeal," converted to dollars using the
+* average price coefficient as the marginal utility of income.
+* beta_bar should be negative (higher price = lower utility).</span>
+<span class="tok-fn">summ</span> beta_price_j
+<span class="tok-kw">local</span> beta_bar = r(mean)
+
+<span class="tok-kw">gen</span> <span class="tok-kw">double</span> welfare_uniform = ///
+    (<span class="tok-fn">ln</span>(denom_cf_uniform) - <span class="tok-fn">ln</span>(sum_exp_old)) / (-`beta_bar')
+
+
+<span class="tok-cm">****************************************************
+* Visualization of baseline and counterfactual outcomes
+****************************************************</span>
+
+<span class="tok-cm">* Five scenarios in total:
+*   uniform  — flat +10% price increase across all products
+*   premium  — +15% only for the top 20 UPCs by total revenue
+*   size     — +15% size for products in the bottom size quartile
+*   elast    — -25% price for products in the top decile of own-price elasticity
+*   inst     — -25% price for instant oatmeal products specifically</span>
+<span class="tok-kw">local</span> scenarios uniform premium size elast inst
+
+<span class="tok-cm">* Get a sense of the revenue distribution before anything changes,
+* both at the product-market level and aggregated to store-week</span>
+<span class="tok-fn">hist</span> revenue_sum, percent ///
+    title(<span class="tok-str">"Baseline Revenue per Product-Market"</span>) ///
+    xlabel(, grid) ylabel(, grid)
+<span class="tok-fn">graph export</span> <span class="tok-str">"baseline_revenue.png"</span>, replace
+
+<span class="tok-fn">hist</span> total_rev_old, percent ///
+    title(<span class="tok-str">"Baseline Total Revenue by Store/Week"</span>) ///
+    xlabel(, grid) ylabel(, grid)
+<span class="tok-fn">graph export</span> <span class="tok-str">"baseline_total_revenue.png"</span>, replace
+
+<span class="tok-cm">* For each scenario, plot the distribution of quantity changes, revenue
+* changes, and welfare — useful for seeing not just the average effect
+* but how much it varies across products and markets</span>
+<span class="tok-kw">foreach</span> scenario <span class="tok-kw">of local</span> scenarios {
+
+    <span class="tok-fn">hist</span> dq_`scenario', percent ///
+        title(<span class="tok-str">"ΔQuantity (`scenario')"</span>) ///
+        xlabel(, grid) ylabel(, grid)
+    <span class="tok-fn">graph export</span> <span class="tok-str">"dq_`scenario'.png"</span>, replace
+
+    <span class="tok-fn">hist</span> d_rev_`scenario', percent ///
+        title(<span class="tok-str">"ΔRevenue (`scenario')"</span>) ///
+        xlabel(, grid) ylabel(, grid)
+    <span class="tok-fn">graph export</span> <span class="tok-str">"d_rev_`scenario'.png"</span>, replace
+
+    <span class="tok-fn">hist</span> welfare_`scenario', percent ///
+        title(<span class="tok-str">"Welfare (`scenario')"</span>) ///
+        xlabel(, grid) ylabel(, grid)
+    <span class="tok-fn">graph export</span> <span class="tok-str">"welfare_`scenario'.png"</span>, replace
+
+    <span class="tok-cm">* Welfare change relative to baseline — since we're computing
+    * the log-sum difference directly, this is already a change measure,
+    * but naming it d_welfare makes that framing explicit in the output</span>
+    <span class="tok-kw">gen</span> <span class="tok-kw">double</span> d_welfare_`scenario' = welfare_`scenario'
+    <span class="tok-fn">hist</span> d_welfare_`scenario', percent ///
+        title(<span class="tok-str">"ΔWelfare Change (`scenario')"</span>) ///
+        xlabel(, grid) ylabel(, grid)
+    <span class="tok-fn">graph export</span> <span class="tok-str">"d_welfare_`scenario'.png"</span>, replace
+}</code></div>
+      <div class="code-sample-desc">Flexible Berry logit demand estimation on Dominick's oatmeal scanner data. Filters price interactions and covariates by within-store-week residual variation before estimating with <em>reghdfe</em> and high-dimensional fixed effects. Simulates five counterfactual pricing scenarios — recovering implied shares, quantities, revenues, and consumer welfare via the log-sum formula — then exports distribution plots for each outcome.</div>
+    </div>
+
+<!-- R -->
+    <div class="code-sample-panel" id="code-r">
+      <div class="code-sample-header">
+        <span class="code-sample-title">marchmadness.R — Seed vs. Projected Wins Visualization</span>
+        <a class="code-sample-link" href="marchmadnessproject.pdf" target="_blank">View paper →</a>
+      </div>
+      <div class="code-block"><code><span class="tok-cm"># =============================================================================
+# PLOT: Seed vs. Projected Tournament Wins — 2026 NCAA Tournament
+# =============================================================================
+# PURPOSE:
+#   Visualise how each team's Monte Carlo-projected win total compares to the
+#   historical performance of teams seeded the same way (2011–2025).
+#
+# INPUTS:
+#   • wins_mat     – matrix of simulated win totals (rows = teams, cols = sims)
+#   • final_scores – data frame with columns: team, seed, logo (image path/URL)
+#   • df_hist      – historical tournament data with per-round win indicators
+#                    (W_64, W_32, W_16, W_8, W_4, W_2) and a seed column
+#
+# OUTPUT:
+#   • seed_vs_projected_wins_2026.png  (13 × 7 in, 200 dpi)
+#
+# STEPS:
+#   1. Average the MC simulation matrix down to one projected win total per team
+#   2. Join those projections onto seed/logo metadata from final_scores
+#   3. Compute historical mean + IQR of wins by seed from df_hist (2011–2025)
+#   4. Merge projections with the baseline and add small jitter to reduce overlap
+#   5. Build a three-layer ggplot (IQR ribbon, mean line, team logos) and export
+# =============================================================================</span>
+<span class="tok-kw">library</span>(ggimage)
+
+<span class="tok-cm"># Collapse all the simulations into a single average win total per team</span>
+mc_proj &lt;- data.frame(
+  team         = <span class="tok-fn">rownames</span>(wins_mat),
+  mc_proj_wins = <span class="tok-fn">rowMeans</span>(wins_mat)
+)
+
+<span class="tok-cm"># Bring in seed and logo info so we know where to plot each team</span>
+combined_seed &lt;- final_scores %&gt;%
+  <span class="tok-fn">left_join</span>(mc_proj, by = <span class="tok-str">"team"</span>)
+
+<span class="tok-cm"># Build the historical baseline — for each seed, what does a typical team do?
+# NAs just mean the team didn't make it that far, so we treat them as 0 wins</span>
+hist_seed_perf &lt;- df_hist %&gt;%
+  <span class="tok-fn">mutate</span>(
+    wins_total =
+      <span class="tok-fn">replace_na</span>(W_64, <span class="tok-num">0</span>) + <span class="tok-fn">replace_na</span>(W_32, <span class="tok-num">0</span>) + <span class="tok-fn">replace_na</span>(W_16, <span class="tok-num">0</span>) +
+      <span class="tok-fn">replace_na</span>(W_8,  <span class="tok-num">0</span>) + <span class="tok-fn">replace_na</span>(W_4,  <span class="tok-num">0</span>) + <span class="tok-fn">replace_na</span>(W_2,  <span class="tok-num">0</span>)
+  ) %&gt;%
+  <span class="tok-fn">group_by</span>(seed) %&gt;%
+  <span class="tok-fn">summarise</span>(
+    mean_wins = <span class="tok-fn">mean</span>(wins_total),
+    p25       = <span class="tok-fn">quantile</span>(wins_total, <span class="tok-num">0.25</span>),
+    p75       = <span class="tok-fn">quantile</span>(wins_total, <span class="tok-num">0.75</span>),
+    .groups   = <span class="tok-str">"drop"</span>
+  )
+
+<span class="tok-cm"># Merge everything together and add a tiny bit of jitter so logos don't
+# completely overlap when teams share the same seed or projected win total</span>
+seed_plot &lt;- combined_seed %&gt;%
+  <span class="tok-fn">filter</span>(!<span class="tok-fn">is.na</span>(seed)) %&gt;%
+  <span class="tok-fn">left_join</span>(hist_seed_perf, by = <span class="tok-str">"seed"</span>) %&gt;%
+  <span class="tok-fn">mutate</span>(
+    seed_jitter = seed + <span class="tok-fn">runif</span>(<span class="tok-fn">n</span>(), -<span class="tok-num">0.15</span>, <span class="tok-num">0.15</span>),
+    wins_jitter = <span class="tok-fn">pmax</span>(<span class="tok-num">0</span>, mc_proj_wins + <span class="tok-fn">runif</span>(<span class="tok-fn">n</span>(), -<span class="tok-num">0.04</span>, <span class="tok-num">0.04</span>))  <span class="tok-cm"># floor at 0</span>
+  )
+
+<span class="tok-cm"># Grey ribbon = middle 50% of historical outcomes, black line = historical mean,
+# logos = where each team's MC projection actually lands</span>
+p_seed_projection &lt;- <span class="tok-fn">ggplot</span>() +
+  <span class="tok-fn">geom_ribbon</span>(data = hist_seed_perf,
+              <span class="tok-fn">aes</span>(x = seed, ymin = p25, ymax = p75),
+              fill = <span class="tok-str">"grey80"</span>, alpha = <span class="tok-num">0.45</span>) +
+  <span class="tok-fn">geom_line</span>(data = hist_seed_perf,
+            <span class="tok-fn">aes</span>(x = seed, y = mean_wins),
+            color = <span class="tok-str">"black"</span>, linewidth = <span class="tok-num">1.2</span>) +
+  <span class="tok-fn">geom_image</span>(data = seed_plot,
+             <span class="tok-fn">aes</span>(x = seed_jitter, y = wins_jitter, image = logo),
+             size = <span class="tok-num">0.055</span>) +
+  <span class="tok-fn">scale_x_continuous</span>(breaks = <span class="tok-num">1</span>:<span class="tok-num">16</span>, limits = <span class="tok-fn">c</span>(<span class="tok-num">0.5</span>, <span class="tok-num">16.5</span>)) +
+  <span class="tok-fn">scale_y_continuous</span>(breaks = <span class="tok-fn">seq</span>(<span class="tok-num">0</span>, <span class="tok-num">6</span>, <span class="tok-num">1</span>), limits = <span class="tok-fn">c</span>(<span class="tok-num">0</span>, <span class="tok-num">6</span>)) +  <span class="tok-cm"># 6 wins = champion</span>
+  <span class="tok-fn">labs</span>(
+    title    = <span class="tok-str">"Seed vs Projected Tournament Wins — 2026 NCAA Tournament"</span>,
+    subtitle = <span class="tok-str">"Logos show Monte Carlo projected wins; black line shows historical seed expectation"</span>,
+    x        = <span class="tok-str">"Seed"</span>,
+    y        = <span class="tok-str">"Projected Tournament Wins"</span>,
+    caption  = <span class="tok-fn">paste0</span>(
+      <span class="tok-str">"Historical baseline: 2011–2025 tournaments\n"</span>,
+      <span class="tok-str">"Grey band = historical interquartile range of wins for that seed"</span>
+    ) +
+<span class="tok-fn">theme_minimal</span>(base_size = <span class="tok-num">20</span>) +
+  <span class="tok-fn">theme</span>(
+    plot.title       = <span class="tok-fn">element_text</span>(face = <span class="tok-str">"bold"</span>, size = <span class="tok-num">32</span>, color = <span class="tok-str">"black"</span>),
+    plot.subtitle    = <span class="tok-fn">element_text</span>(size = <span class="tok-num">22</span>, color = <span class="tok-str">"grey30"</span>),
+    plot.caption     = <span class="tok-fn">element_text</span>(size = <span class="tok-num">18</span>, color = <span class="tok-str">"grey40"</span>),
+    axis.title.x     = <span class="tok-fn">element_text</span>(size = <span class="tok-num">22</span>, face = <span class="tok-str">"bold"</span>),
+    axis.title.y     = <span class="tok-fn">element_text</span>(size = <span class="tok-num">22</span>, face = <span class="tok-str">"bold"</span>),
+    axis.text        = <span class="tok-fn">element_text</span>(size = <span class="tok-num">18</span>),
+    panel.grid.minor = <span class="tok-fn">element_blank</span>(),
+    panel.grid.major = <span class="tok-fn">element_line</span>(color = <span class="tok-str">"#E6E6E6"</span>, linewidth = <span class="tok-num">0.7</span>)
+  )
+
+<span class="tok-cm"># Render plot</span>
+<span class="tok-fn">print</span>(p_seed_projection)
+        
+<span class="tok-fn">ggsave</span>(<span class="tok-str">"seed_vs_projected_wins_2026.png"</span>, p_seed_projection,
+       width = <span class="tok-num">13</span>, height = <span class="tok-num">7</span>, dpi = <span class="tok-num">200</span>, bg = <span class="tok-str">"white"</span>)</code></div>
+      <div class="code-sample-desc">ggplot2 visualization pipeline for the NCAA prediction model. Constructs a historical IQR ribbon and mean-wins baseline by seed from 2011–2025 tournament data, then overlays each 2026 team's Monte Carlo projected wins as their logo — making it immediately visible which teams are beating or trailing seed expectations.</div>
+    </div>
+
+    <div class="code-sample-panel" id="code-matlab">
+      <div class="code-sample-header">
+        <span class="code-sample-title">matlabcodesample.m — Hamiltonian and Gradient Flow Visualization</span>
+        <a class="code-sample-link" href="https://github.com/egilligan30/Gilliganprojects/blob/main/code_samples/matlabcodesample.m" target="_blank">View script →</a>
+      </div>
+      <div class="code-block"><code><span class="tok-cm">%% PURPOSE
+% This script visualizes and compares two dynamical systems that can be derived
+% from a single scalar function H(x,y) — the "Hamiltonian".
+% 
+% Given H, two natural vector fields arise:
+%
+%   (1) Hamiltonian system:  (dx/dt, dy/dt) = ( ∂H/∂y, -∂H/∂x )
+%       Trajectories orbit along level curves of H. Because H is constant along
+%       solutions, this system cannot converge to a fixed
+%       point or diverge to infinity.
+%
+%   (2) Gradient system:     (dx/dt, dy/dt) = ( ∂H/∂x,  ∂H/∂y )
+%       Trajectories climb in the direction of steepest ascent of H, crossing
+%       level curves perpendicularly. The sign can be flipped for gradient descent.
+%
+% Producing both portraits side-by-side makes the geometric duality immediately
+% visible: the two families of curves are everywhere orthogonal to each other
+% (except at critical points of H).</span>
+
+<span class="tok-cm">%% SCRIPT OUTLINE
+%   Section 1 — User parameters: define H, domain, resolution, and plot options.
+%               Edit here to experiment with different Hamiltonians or domains.
+%   Section 2 — Numerical derivatives: build anonymous functions for ∂H/∂x and
+%               ∂H/∂y using central finite differences.
+%   Section 3 — Grid & vector fields: construct the meshgrid, evaluate H and
+%               both vector fields at every grid point.
+%   Section 4 — Visualization:
+%       (4a) Side-by-side phase portraits — Hamiltonian on the left (contours +
+%            quiver), gradient system on the right (streamlines + quiver).
+%       (4b) Overlay — both families drawn on one axes to make orthogonality
+%            immediately visible.</span>
+
+<span class="tok-kw">clear</span>; <span class="tok-kw">clc</span>; <span class="tok-kw">close</span> all;
+
+<span class="tok-cm">%% ===================== 1. USER INPUT / PARAMETERS =====================
+% -----------------------------------------------------------------------
+% SCALAR FUNCTION H(x,y)
+%   This is the only line you need to change to study a different system.
+%   Classic examples to try:
+%       H = @(x,y) x.^2 + y.^2;           
+%       H = @(x,y) x.^2 - y.^2;           
+%       H = @(x,y) sin(x).*cos(y);        
+% -----------------------------------------------------------------------</span>
+H = @(x,y) x.^<span class="tok-num">2</span> - <span class="tok-num">2</span>*x.*y - y.^<span class="tok-num">2</span> + <span class="tok-num">2</span>*x - <span class="tok-num">2</span>*y + <span class="tok-num">2</span>;
+
+<span class="tok-cm">% -----------------------------------------------------------------------
+% FINITE DIFFERENCE STEP SIZE
+%   Used to numerically approximate ∂H/∂x and ∂H/∂y (see Section 2).
+%   Should be small enough for accuracy but not so small that floating-point
+%   cancellation dominates.
+% -----------------------------------------------------------------------</span>
+eps_fd = <span class="tok-num">1e-5</span>;
+
+<span class="tok-cm">% -----------------------------------------------------------------------
+% DOMAIN AND GRID RESOLUTION
+%   x_range / y_range define the window shown in each plot.
+%   grid_N controls how many sample points are used along each axis.
+%   Larger grid_N gives smoother contours but increases memory usage.
+% -----------------------------------------------------------------------</span>
+x_range = [-<span class="tok-num">3</span>, <span class="tok-num">3</span>];
+y_range = [-<span class="tok-num">3</span>, <span class="tok-num">3</span>];
+grid_N  = <span class="tok-num">400</span>;
+
+<span class="tok-cm">% -----------------------------------------------------------------------
+% QUIVER DISPLAY SETTINGS
+%   quiver_skip: only every k-th grid point gets an arrow; prevents the plot
+%                from being buried under overlapping arrows.
+%   quiver_scale: scales arrow length; smaller values shorten arrows.
+%   Arrows are normalized to unit length before scaling so that the quiver
+%   shows direction only, not magnitude.
+% -----------------------------------------------------------------------</span>
+quiver_skip  = <span class="tok-num">20</span>;
+quiver_scale = <span class="tok-num">0.4</span>;
+
+<span class="tok-cm">% -----------------------------------------------------------------------
+% CONTOUR LEVELS
+%   These are the values of H at which level curves are drawn. They become
+%   the Hamiltonian trajectories in the left panel and the reference curves
+%   in the overlay; adjust the range to cover the domain of interest.
+% -----------------------------------------------------------------------</span>
+H_levels = <span class="tok-fn">linspace</span>(<span class="tok-num">0.1</span>, <span class="tok-num">16</span>, <span class="tok-num">10</span>);
+
+<span class="tok-cm">% -----------------------------------------------------------------------
+% STREAMLINE SEED POINTS (for gradient flow)
+%   Streamlines are integrated forward along the gradient vector field
+%   starting from these (x,y) positions.
+%   Add or remove seeds to trace different regions.
+% -----------------------------------------------------------------------</span>
+startX = [-<span class="tok-num">2</span> -<span class="tok-num">1.5</span> -<span class="tok-num">1</span> -<span class="tok-num">0.5</span>  <span class="tok-num">0</span>  <span class="tok-num">0.5</span>  <span class="tok-num">1</span>  <span class="tok-num">1.5</span>  <span class="tok-num">2</span> ...
+          -<span class="tok-num">2</span> -<span class="tok-num">1.5</span> -<span class="tok-num">1</span> -<span class="tok-num">0.5</span>  <span class="tok-num">0</span>  <span class="tok-num">0.5</span>  <span class="tok-num">1</span>  <span class="tok-num">1.5</span>  <span class="tok-num">2</span>];
+
+startY = [-<span class="tok-num">2</span> -<span class="tok-num">2</span>   -<span class="tok-num">2</span> -<span class="tok-num">2</span>   -<span class="tok-num">2</span> -<span class="tok-num">2</span>   -<span class="tok-num">2</span> -<span class="tok-num">2</span>   -<span class="tok-num">2</span> ...
+           <span class="tok-num">2</span>  <span class="tok-num">2</span>    <span class="tok-num">2</span>  <span class="tok-num">2</span>    <span class="tok-num">2</span>  <span class="tok-num">2</span>    <span class="tok-num">2</span>  <span class="tok-num">2</span>    <span class="tok-num">2</span>];
+
+<span class="tok-cm">% -----------------------------------------------------------------------
+% PLOT TOGGLES
+%   Set either flag to false to skip that figure.
+% -----------------------------------------------------------------------</span>
+make_side_by_side = <span class="tok-kw">true</span>;
+make_overlay      = <span class="tok-kw">true</span>;
+
+<span class="tok-cm">%% ===================== 2. NUMERICAL DERIVATIVES =====================
+% -----------------------------------------------------------------------
+% Central finite difference formulas:
+%   ∂H/∂x ≈ [ H(x + ε, y) - H(x - ε, y) ] / (2ε)
+%   ∂H/∂y ≈ [ H(x, y + ε) - H(x, y - ε) ] / (2ε)
+%
+% Central differences are second-order accurate (error ~ ε²).
+% Both Hx and Hy are returned as anonymous functions so they can be called
+% on scalars, vectors, or full meshgrids with identical syntax.
+% -----------------------------------------------------------------------</span>
+Hx = @(x,y) (H(x+eps_fd, y) - H(x-eps_fd, y)) / (<span class="tok-num">2</span>*eps_fd);
+Hy = @(x,y) (H(x, y+eps_fd) - H(x, y-eps_fd)) / (<span class="tok-num">2</span>*eps_fd);
+
+<span class="tok-cm">%% ===================== 3. GRID + VECTOR FIELDS =====================
+% -----------------------------------------------------------------------
+% Build a uniform rectangular grid over the specified domain.
+%   xv, yv are 1-D coordinate vectors (length grid_N each).
+%   meshgrid returns 2-D arrays X and Y of size (grid_N × grid_N) so that
+%   every (X(i,j), Y(i,j)) pair is a distinct point in the domain.
+% -----------------------------------------------------------------------</span>
+xv = <span class="tok-fn">linspace</span>(x_range(<span class="tok-num">1</span>), x_range(<span class="tok-num">2</span>), grid_N);
+yv = <span class="tok-fn">linspace</span>(y_range(<span class="tok-num">1</span>), y_range(<span class="tok-num">2</span>), grid_N);
+[X, Y] = <span class="tok-fn">meshgrid</span>(xv, yv);
+
+<span class="tok-cm">% Evaluate the scalar field H at every grid point.
+% H_vals is used for drawing the level curves.</span>
+H_vals = H(X, Y);
+
+<span class="tok-cm">% -----------------------------------------------------------------------
+% Hamiltonian vector field: rotate the gradient 90° counter-clockwise.
+%   (Ux, Vx) = ( ∂H/∂y, -∂H/∂x )
+%   This 90° rotation is what makes trajectories flow along the level 
+%   curves of H.
+% -----------------------------------------------------------------------</span>
+U_ham  =  Hy(X, Y);   <span class="tok-cm">%  x-component of ∂H/∂y</span>
+V_ham  = -Hx(X, Y);   <span class="tok-cm">%  y-component of -∂H/∂x</span>
+
+<span class="tok-cm">% -----------------------------------------------------------------------
+% Gradient vector field:
+%   (Ux, Vx) = ( ∂H/∂x, ∂H/∂y )
+% -----------------------------------------------------------------------</span>
+U_grad =  Hx(X, Y);   <span class="tok-cm">%  x-component of ∂H/∂x</span>
+V_grad =  Hy(X, Y);   <span class="tok-cm">%  y-component of ∂H/∂y</span>
+
+<span class="tok-cm">%% ===================== 4. VISUALIZATION PREP =====================
+% -----------------------------------------------------------------------
+% Quiver plots:
+%   Using every grid point would pack arrows so densely they become
+%   unreadable. Keeping only every (quiver_skip)-th row and column
+%   gives a legible figure.
+% -----------------------------------------------------------------------</span>
+sk = quiver_skip;
+
+Xq   = X(<span class="tok-num">1</span>:sk:end, <span class="tok-num">1</span>:sk:end);
+Yq   = Y(<span class="tok-num">1</span>:sk:end, <span class="tok-num">1</span>:sk:end);
+
+Uq_h = U_ham(<span class="tok-num">1</span>:sk:end,  <span class="tok-num">1</span>:sk:end);
+Vq_h = V_ham(<span class="tok-num">1</span>:sk:end,  <span class="tok-num">1</span>:sk:end);
+
+Uq_g = U_grad(<span class="tok-num">1</span>:sk:end, <span class="tok-num">1</span>:sk:end);
+Vq_g = V_grad(<span class="tok-num">1</span>:sk:end, <span class="tok-num">1</span>:sk:end);
+
+<span class="tok-cm">% -----------------------------------------------------------------------
+% Normalize arrows to unit length before passing to quiver.
+%   Without normalization, arrows in high-gradient regions would dwarf those
+%   in low-gradient regions and obscure the structure. The small
+%   constant (1e-10) prevents division by zero near critical points.
+% -----------------------------------------------------------------------</span>
+mag_h = <span class="tok-fn">sqrt</span>(Uq_h.^<span class="tok-num">2</span> + Vq_h.^<span class="tok-num">2</span>) + <span class="tok-num">1e-10</span>;
+mag_g = <span class="tok-fn">sqrt</span>(Uq_g.^<span class="tok-num">2</span> + Vq_g.^<span class="tok-num">2</span>) + <span class="tok-num">1e-10</span>;
+
+<span class="tok-cm">%% ===================== 4a. SIDE-BY-SIDE PLOTS =====================</span>
+<span class="tok-kw">if</span> make_side_by_side
+    <span class="tok-fn">figure</span>(<span class="tok-str">'Color'</span>,<span class="tok-str">'white'</span>,<span class="tok-str">'Position'</span>,[<span class="tok-num">100</span> <span class="tok-num">100</span> <span class="tok-num">1200</span> <span class="tok-num">520</span>]);
+
+    <span class="tok-cm">% Hamiltonian system:</span>
+    <span class="tok-fn">subplot</span>(<span class="tok-num">1</span>,<span class="tok-num">2</span>,<span class="tok-num">1</span>); <span class="tok-fn">hold</span> on; <span class="tok-fn">axis</span> equal; <span class="tok-fn">box</span> on;
+
+    <span class="tok-cm">% Draw level curves of H </span>
+    <span class="tok-fn">contour</span>(X, Y, H_vals, H_levels, <span class="tok-str">'LineWidth'</span>, <span class="tok-num">1.5</span>, ...
+            <span class="tok-str">'LineColor'</span>, [<span class="tok-num">0.18</span> <span class="tok-num">0.53</span> <span class="tok-num">0.82</span>]);
+
+    <span class="tok-cm">% Overlay direction arrows to show flow direction on each curve</span>
+    <span class="tok-fn">quiver</span>(Xq, Yq, Uq_h./mag_h, Vq_h./mag_h, quiver_scale, ...
+           <span class="tok-str">'Color'</span>, [<span class="tok-num">0.18</span> <span class="tok-num">0.53</span> <span class="tok-num">0.82</span> <span class="tok-num">0.55</span>]);
+
+    <span class="tok-cm">% Mark the origin as a reference point</span>
+    <span class="tok-fn">plot</span>(<span class="tok-num">0</span>, <span class="tok-num">0</span>, <span class="tok-str">'ko'</span>, <span class="tok-str">'MarkerFaceColor'</span>, <span class="tok-str">'k'</span>);
+
+    <span class="tok-fn">xlabel</span>(<span class="tok-str">'x'</span>); <span class="tok-fn">ylabel</span>(<span class="tok-str">'y'</span>);
+    <span class="tok-fn">xlim</span>(x_range); <span class="tok-fn">ylim</span>(y_range);
+    <span class="tok-fn">title</span>(<span class="tok-str">'Hamiltonian system'</span>);
+
+    <span class="tok-cm">% Gradient system:</span>
+    <span class="tok-fn">subplot</span>(<span class="tok-num">1</span>,<span class="tok-num">2</span>,<span class="tok-num">2</span>); <span class="tok-fn">hold</span> on; <span class="tok-fn">axis</span> equal; <span class="tok-fn">box</span> on;
+
+    <span class="tok-cm">% Draw the same level curves as dashed gray lines for reference</span>
+    <span class="tok-fn">contour</span>(X, Y, H_vals, H_levels, <span class="tok-str">'LineStyle'</span>,<span class="tok-str">'--'</span>, ...
+            <span class="tok-str">'LineColor'</span>, [<span class="tok-num">0.6</span> <span class="tok-num">0.6</span> <span class="tok-num">0.6</span>]);
+
+    <span class="tok-cm">% Normalize the gradient field before integration</span>
+    mag_g_full = <span class="tok-fn">sqrt</span>(U_grad.^<span class="tok-num">2</span> + V_grad.^<span class="tok-num">2</span>) + <span class="tok-num">1e-10</span>;
+
+    <span class="tok-fn">streamline</span>(X, Y, ...
+        U_grad./mag_g_full, V_grad./mag_g_full, ...
+        startX, startY);
+
+    <span class="tok-cm">% Add direction arrows</span>
+    <span class="tok-fn">quiver</span>(Xq, Yq, Uq_g./mag_g, Vq_g./mag_g, quiver_scale, ...
+           <span class="tok-str">'Color'</span>, [<span class="tok-num">0.85</span> <span class="tok-num">0.29</span> <span class="tok-num">0.29</span> <span class="tok-num">0.5</span>]);
+
+    <span class="tok-cm">% Mark the origin for spatial reference</span>
+    <span class="tok-fn">plot</span>(<span class="tok-num">0</span>, <span class="tok-num">0</span>, <span class="tok-str">'ko'</span>, <span class="tok-str">'MarkerFaceColor'</span>, <span class="tok-str">'k'</span>);
+
+    <span class="tok-fn">xlabel</span>(<span class="tok-str">'x'</span>); <span class="tok-fn">ylabel</span>(<span class="tok-str">'y'</span>);
+    <span class="tok-fn">xlim</span>(x_range); <span class="tok-fn">ylim</span>(y_range);
+    <span class="tok-fn">title</span>(<span class="tok-str">'Gradient system'</span>);
+
+    <span class="tok-cm">% Shared title for both panels</span>
+    <span class="tok-fn">sgtitle</span>(<span class="tok-str">'Orthogonal phase portrait families'</span>);
+<span class="tok-kw">end</span>
+
+<span class="tok-cm">%% ===================== 4b. OVERLAY =====================
+% Draw both on one set of axes.
+% Blue = level curves of H.
+% Red = gradient paths.</span>
+<span class="tok-kw">if</span> make_overlay
+    <span class="tok-fn">figure</span>(<span class="tok-str">'Color'</span>,<span class="tok-str">'white'</span>);
+    <span class="tok-fn">hold</span> on; <span class="tok-fn">axis</span> equal; <span class="tok-fn">box</span> on;
+
+    <span class="tok-cm">% Hamiltonian level curves as solid blue lines.
+    % [~, hc] gets the contour object for the legend</span>
+    [~, hc] = <span class="tok-fn">contour</span>(X, Y, H_vals, H_levels, <span class="tok-str">'LineWidth'</span>, <span class="tok-num">1.8</span>);
+    hc.LineColor = [<span class="tok-num">0.18</span> <span class="tok-num">0.53</span> <span class="tok-num">0.82</span>];
+
+    <span class="tok-cm">% Gradient trajectories in red.</span>
+    h_stream2 = <span class="tok-fn">streamline</span>(X, Y, U_grad, V_grad, startX, startY);
+    <span class="tok-fn">set</span>(h_stream2, <span class="tok-str">'Color'</span>, [<span class="tok-num">0.85</span> <span class="tok-num">0.29</span> <span class="tok-num">0.29</span>]);
+
+    <span class="tok-cm">% Mark the origin</span>
+    <span class="tok-fn">plot</span>(<span class="tok-num">0</span>, <span class="tok-num">0</span>, <span class="tok-str">'ko'</span>, <span class="tok-str">'MarkerFaceColor'</span>, <span class="tok-str">'k'</span>);
+
+    <span class="tok-fn">xlabel</span>(<span class="tok-str">'x'</span>); <span class="tok-fn">ylabel</span>(<span class="tok-str">'y'</span>);
+    <span class="tok-fn">xlim</span>(x_range); <span class="tok-fn">ylim</span>(y_range);
+
+    <span class="tok-fn">title</span>(<span class="tok-str">'Overlaid: Hamiltonian ⟂ Gradient flow'</span>);
+
+    <span class="tok-cm">% Legend uses the contour object and the first streamline handle</span>
+    <span class="tok-fn">legend</span>([hc, h_stream2(<span class="tok-num">1</span>)], ...
+        {<span class="tok-str">'Hamiltonian trajectories'</span>, <span class="tok-str">'Gradient trajectories'</span>}, ...
+        <span class="tok-str">'Location'</span>, <span class="tok-str">'southeast'</span>);
+<span class="tok-kw">end</span>;</code></div>
+      <div class="code-sample-desc">Visualizes a Hamiltonian system and its associated gradient flow, derived from a single scalar function H(x,y).
+      Hamiltonian trajectories orbit along level curves; gradient paths cross them perpendicularly.
+      Uses central finite differences for numerical derivatives and normalized quiver arrows for direction-only display.</div>
+    </div>
+
+
+<!-- SQL (placeholder) -->
+    <div class="code-sample-panel" id="code-sql">
+      <div class="code-sample-header">
+        <span class="code-sample-title">SQL — Sample Coming Soon</span>
+      </div>
+      <div class="code-block" style="min-height:160px; display:flex; align-items:center; justify-content:center;">
+        <code style="color:#4a5a72; font-style:italic;">% SQL sample coming soon</code>
+      </div>
+      <div class="code-sample-desc">A SQL code sample from a project will be added here shortly.</div>
+    </div>
+
+    
+  </section>
+
+  <section id="coursework">
+    <div class="section-label">05 — Relevant Coursework</div>
+    <div class="courses-grid">
+      <div class="course-group">
+        <h3>Economics</h3>
+        <ul class="course-list">
+          <li>Game Theory</li>
+          <li>Industrial Organization</li>
+          <li>Economics of Labor</li>
+          <li>Experimental Economics</li>
+          <li>Introduction to Econometrics</li>
+        </ul>
+      </div>
+      <div class="course-group">
+        <h3>Mathematics</h3>
+        <ul class="course-list">
+          <li>Basic Real Analysis</li>
+          <li>Ordinary Differential Equations</li>
+          <li>Differential Equations &amp; Dynamical Systems</li>
+          <li>Elementary Linear Algebra</li>
+          <li>Calculus-Based Probability</li>
+          <li>Survey of Algebra (Abstract Algebra)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-label">06 — Contact</div>
+    <h2>Let's Connect</h2>
+    <p style="font-size:0.93rem; color:var(--muted); margin-bottom:2rem; max-width:460px;">I'm always happy to discuss research, collaborate on projects, or simply connect. Reach out through any of the channels below.</p>
+    <div class="contact-row">
+      <div class="contact-item">
+        <span class="contact-label">Email</span>
+        <a class="contact-value" href="/cdn-cgi/l/email-protection#abcecfdccad9cfccc2c7c7c2cccac59debccc6cac2c785c8c4c6"><span class="__cf_email__" data-cfemail="acc9c8dbcddec8cbc5c0c0c5cbcdc29aeccbc1cdc5c082cfc3c1">[email&#160;protected]</span></a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">LinkedIn</span>
+        <a class="contact-value" href="https://www.linkedin.com/in/edward-gilligan-711854256/" target="_blank">edward-gilligan-711854256</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">GitHub</span>
+        <a class="contact-value" href="https://github.com/egilligan30" target="_blank">egilligan30</a>
+      </div>
+    </div>
+    <a class="resume-btn" href="resumeeg.pdf" target="_blank">↓ Download Resume</a>
+  </section>
+
+</main>
+
+<footer>
+  <span class="footer-name">Edward Gilligan</span>
+  <span class="footer-uva">UVA Economics, Classics, and Mathematics · Class of 2026</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const graphs = [
+    {
+      src: 'revenue_comparison_bar.png',
+      caption: '<strong>Demand Estimation for Oatmeal</strong> — Total revenue change across five counterfactual pricing scenarios. The uniform +10% price increase is the only strategy that increases total revenue (+$589,519), while cuts targeting elastic or instant segments sharply reduce it.'
+    },
+    {
+      src: 'welfare_comparison_boxplot.png',
+      caption: '<strong>Demand Estimation for Oatmeal</strong> — Consumer welfare changes across pricing scenarios. Price cuts on elastic and instant products produce welfare gains, while the uniform +10% increase causes uniform welfare losses.'
+    },
+    {
+      src: 'seed_vs_projected_wins_2026.png',
+      caption: '<strong>NCAA Tournament Prediction Model</strong> — Monte Carlo projected wins vs. seed for all 2026 tournament teams, benchmarked against the historical seed-expectation baseline. Teams above the curve are model outperformers; below are candidates for early exits.'
+    },
+    {
+      src: 'bracket_2026_survival.png',
+      caption: '<strong>NCAA Tournament Prediction Model</strong> — Round-by-round survival probabilities for the top 12 championship contenders across 10,000 simulated brackets. Michigan (#1) leads with a 23.9% championship probability, followed by Florida at 12.0%.'
+    }
+  ];
+
+  function showGraph(i) {
+    const img = document.getElementById('graph-img');
+    img.style.opacity = '0';
+    setTimeout(() => {
+      img.src = graphs[i].src;
+      img.style.opacity = '1';
+    }, 150);
+    document.getElementById('graph-caption').innerHTML = graphs[i].caption;
+    document.querySelectorAll('.graph-tab').forEach((t, idx) => {
+      t.classList.toggle('active', idx === i);
+    });
+  }
+
+function showCode(btn, lang) {
+    document.querySelectorAll('.code-sample-panel').forEach(p => {
+      p.classList.remove('active');
+    });
+    document.querySelectorAll('.code-lang-tab').forEach(t => {
+      t.classList.remove('active');
+    });
+    document.getElementById('code-' + lang).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  </script> 
+
+</body>
+</html>

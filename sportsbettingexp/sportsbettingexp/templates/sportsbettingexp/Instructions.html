@@ -1,0 +1,75 @@
+{% extends "global/Page.html" %}
+
+{% block content %}
+<h1>Game Instructions</h1>
+
+<p>Welcome to the simulation! In this experiment, you will manage your finances across {{ C.NUM_ROUNDS }} rounds by placing bets with different odds.</p>
+
+<hr>
+
+<h2>1. Starting Conditions</h2>
+<ul>
+    <li>You begin with <strong>$250 in savings</strong> and <strong>$0 in debt</strong>.</li>
+    <li>Each round, you must pay a <strong>mortgage of $25</strong>.</li>
+    <li>If you cannot cover the mortgage from your savings, the unpaid amount will be added to your debt.</li>
+    <li>If your total debt reaches <strong>$500</strong>, you go <strong>bankrupt</strong> and the game ends.</li>
+</ul>
+
+<hr>
+
+<h2>2. Placing Bets</h2>
+<ul>
+    <li>Each round, you will choose:
+        <ul>
+            <li>A <strong>bet amount</strong> between $0 and $250.</li>
+            <li>Bet <strong>odds</strong> using a slider ranging from negative to positive values.</li>
+        </ul>
+    </li>
+    <li><strong>Negative odds</strong> (e.g. -200) represent safer bets that are more likely to win, but pay less.</li>
+    <li><strong>Positive odds</strong> (e.g. +200) represent riskier bets that are less likely to win, but pay more.</li>
+</ul>
+
+<hr>
+
+<h2>3. Example Payouts (for a $10 bet)</h2>
+<ul>
+    <li>Odds -200: Win $15, Lose $10</li>
+    <li>Odds -100: Win $20, Lose $10</li>
+    <li>Odds 0 (even): Win $10, Lose $10</li>
+    <li>Odds +100: Win $20, Lose $10</li>
+    <li>Odds +200: Win $30, Lose $10</li>
+</ul>
+
+<hr>
+
+<h2>4. After Each Round</h2>
+<ul>
+    <li>Your savings and debt will be updated based on your bet result and the mortgage payment.</li>
+    <li>Your current financial status will carry over to the next round.</li>
+    <li>The range of possible odds may increase in later rounds.</li>
+</ul>
+
+<hr>
+
+<h2>5. Winning and Losing</h2>
+<ul>
+    <li>If you keep your debt below $500 after all {{ C.NUM_ROUNDS }} rounds, you have <strong>survived financially!</strong></li>
+    <li>If your debt reaches $500 or more, you are <strong>bankrupt</strong> and the game ends immediately.</li>
+</ul>
+
+<hr>
+
+<h2>6. Other</h2>
+<ul>
+    <li>Points and dollars are synonomous; please do not think that one has more value than the other.</strong></li>
+</ul>
+
+<hr>
+
+<p>Click “Next” to begin.</p>
+
+<form method="post">
+    <button type="submit" class="btn btn-primary">Next</button>
+</form>
+
+{% endblock %}

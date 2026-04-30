@@ -1,0 +1,49 @@
+{% extends "global/Page.html" %}
+
+{% block content %}
+<h1>Results – Round {{ ROUND_NUMBER }}</h1>
+
+<h2>Current Round Summary</h2>
+<ul>
+    <li>Bet chosen: ${{ BET_AMOUNT }} (Odds: {{ BET_CHOICE }})</li>
+    <li>Bet outcome: ${{ BET_OUTCOME }}</li>
+    <li>Savings after bet: ${{ SAVINGS }}</li>
+    <li>Debt after mortgage: ${{ DEBT }}</li>
+    <li>Mortgage paid this round: {% if MORTGAGE_PAID %}Yes{% else %}No{% endif %}</li>
+    <li>Bankrupt: {% if BANKRUPT %}Yes{% else %}No{% endif %}</li>
+</ul>
+
+<h2>Cumulative History</h2>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Round</th>
+        <th>Bet Amount</th>
+        <th>Bet Odds</th>
+        <th>Bet Outcome</th>
+        <th>Savings</th>
+        <th>Debt</th>
+        <th>Mortgage Paid</th>
+        <th>Bankrupt</th>
+    </tr>
+    {% for r in ALL_ROUNDS %}
+    <tr>
+        <td>{{ r.round_number }}</td>
+        <td>${{ r.bet_amount }}</td>
+        <td>{{ r.bet_odds }}</td>
+        <td>${{ r.bet_outcome }}</td>
+        <td>${{ r.savings }}</td>
+        <td>${{ r.debt }}</td>
+        <td>{% if r.mortgage_paid %}Yes{% else %}No{% endif %}</td>
+        <td>{% if r.bankrupt %}Yes{% else %}No{% endif %}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% if ROUND_NUMBER < NUM_ROUNDS %}
+<form method="post">
+    <button type="submit" class="btn btn-primary">Next Round</button>
+</form>
+{% else %}
+<p><strong>Experiment complete. Thank you for participating!</strong></p>
+{% endif %}
+{% endblock %}
